@@ -25,13 +25,15 @@ if params['device'] == 'cluster':
     params['max walltime'] = cmdLineInputs[3]  # maximum walltime in hours
                                                # After free aptamer MD, "sampling time" might be reduced to ensure bindingDynamics to finish before time out.
                                                # Or give up if this isn't enough time to complete even a minimum run.
+    params['peptide backbone constraint constant'] = cmdLineInputs[4]  # 10000  # constraint on the peptide's dihedral angles. force constant k.
+    
     # Physical params
-    params['temperature'] = cmdLineInputs[4]     # Kevin - used to predict secondary structure and for MD thermostat
-    params['pH'] = cmdLineInputs[5]              # simulation will automatically protonate the peptide up to this pH. Used in OpenMM for waterBox
-    params['ionicStrength'] = cmdLineInputs[6]   # Molar - sodium concentration - used to predict secondary structure and add ions to simulation box, must be 1100 M > [Na] > 50 for nupack to run
+    params['temperature'] = cmdLineInputs[5]     # Kevin - used to predict secondary structure and for MD thermostat
+    params['pH'] = cmdLineInputs[6]              # simulation will automatically protonate the peptide up to this pH. Used in OpenMM for waterBox
+    params['ionicStrength'] = cmdLineInputs[7]   # Molar - sodium concentration - used to predict secondary structure and add ions to simulation box, must be 1100 M > [Na] > 50 for nupack to run
                                                  # TODO: how about adding other ions? Expand the FF as well?
-    params['[Mg]'] = cmdLineInputs[7]            # Molar - magnesium concentration: 0.2 M > [Mg] > 0 - ONLY applies to NuPack fold - Does NOT add Mg to MD simulations
-    params['impSolv'] = cmdLineInputs[8]         # this is a string, cannot be used as parameter in prmtop.createSys()!
+    params['[Mg]'] = cmdLineInputs[8]            # Molar - magnesium concentration: 0.2 M > [Mg] > 0 - ONLY applies to NuPack fold - Does NOT add Mg to MD simulations
+    params['impSolv'] = cmdLineInputs[9]         # this is a string, cannot be used as parameter in prmtop.createSys()!
     params['pressure'] = 1                       # atmosphere
 
 elif params['device'] == 'local':
@@ -138,7 +140,6 @@ params['constraints'] = HBonds
 params['rigid water'] = True  # By default, OpenMM makes water molecules completely rigid, constraining both their bond lengths and angles. If False, it's good to reduce integration step size to 0.5 fs
 params['constraint tolerance'] = 1e-6  # What is this tolerance for? For constraint?
 params['hydrogen mass'] = 1.5  # in a.m.u. - we can increase the sampling time if we use heavier hydrogen
-params['peptide backbone constraint constant'] = 0  # 10000  # constraint on the peptide's dihedral angles. force constant k.
 
 # Specify implicit solvent model
 params['implicit solvent'] = True  # implicit solvent or explicit solvent
