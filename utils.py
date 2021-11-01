@@ -34,6 +34,7 @@ def get_input():
     parser.add_argument('--sequence', type=str, default='XXX')
     parser.add_argument('--peptide', type=str, default='BBB')
     parser.add_argument('--walltime', type=float, default=24)
+    parser.add_argument('--k', type=float, default=0)
     parser.add_argument('--temperature', type=float, default=298)
     parser.add_argument('--pH', type=float, default=7.0)
     parser.add_argument('--ionicStrength', type=float, default=0.1)
@@ -45,13 +46,14 @@ def get_input():
     sequence = cmd_line_input.sequence
     peptide = cmd_line_input.peptide
     walltime = cmd_line_input.walltime
+    k = cmd_line_input.k
     temp = cmd_line_input.temperature
     pH = cmd_line_input.pH
     ionicStrength = cmd_line_input.ionicStrength
     Mg = cmd_line_input.Mg
     impSolv = cmd_line_input.impSolv
 
-    return [run, sequence, peptide, walltime, temp, pH, ionicStrength, Mg, impSolv]
+    return [run, sequence, peptide, walltime, k, temp, pH, ionicStrength, Mg, impSolv]
 
 
 def recenterDCD(topology, trajectory):
